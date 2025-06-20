@@ -3,20 +3,82 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-<h2>Welcome, {{ request.user.username }}</h2>
-<p>Email: {{ request.user.email }}</p>
+<style>
+  .profile-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px 25px;
+    background: #fefefe;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+  }
 
-<h3>Your Orders</h3>
+  .profile-container h2 {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #2c3e50;
+  }
 
-{% if orders %}
-    <ul>
-        {% for order in orders %}
-            <li>
-                Order #{{ order.id }} — <strong>{{ order.status }}</strong> — {{ order.date_ordered|date:"M d, Y" }}
-            </li>
-        {% endfor %}
+  .profile-container p {
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+
+  .profile-container h3 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    color: #007bff;
+  }
+
+  ul.orders-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  ul.orders-list li {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  ul.orders-list li:hover {
+    background-color: #e9f0ff;
+  }
+
+  ul.orders-list li strong {
+    color: #007bff;
+  }
+
+  .no-orders {
+    font-style: italic;
+    color: #777;
+  }
+</style>
+
+<div class="profile-container">
+  <h2>Welcome, {{ request.user.username }}</h2>
+  <p>Email: {{ request.user.email }}</p>
+
+  <h3>Your Orders</h3>
+
+  {% if orders %}
+    <ul class="orders-list">
+      {% for order in orders %}
+        <li>
+          Order #{{ order.id }} — <strong>{{ order.status }}</strong> — {{ order.date_ordered|date:"M d, Y" }}
+        </li>
+      {% endfor %}
     </ul>
-{% else %}
-    <p>You haven't placed any orders yet.</p>
-{% endif %}
+  {% else %}
+    <p class="no-orders">You haven't placed any orders yet.</p>
+  {% endif %}
+</div>
+
 {% endblock %}

@@ -3,6 +3,47 @@
 {% block title %}Logged Out{% endblock %}
 
 {% block content %}
-    <h2>You have been logged out.</h2>
-    <p><a href="{% url 'login' %}">Login again</a> or go to the <a href="{% url 'product_list' %}">shop</a>.</p>
+<style>
+  .logout-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 30px 25px;
+    background: #f0f4f8;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    color: #333;
+  }
+
+  .logout-container h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  .logout-container p {
+    font-size: 16px;
+  }
+
+  .logout-container a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 0.3s ease;
+  }
+
+  .logout-container a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+  }
+</style>
+
+<div class="logout-container">
+  <h2>You have been logged out.</h2>
+  <p>
+    <a href="{% url 'login' %}">Login again</a> or go to the
+    <a href="{% url 'product_list' %}">shop</a>.
+  </p>
+</div>
 {% endblock %}

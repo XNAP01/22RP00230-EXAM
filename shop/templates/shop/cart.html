@@ -3,22 +3,113 @@
 {% block title %}Shopping Cart{% endblock %}
 
 {% block content %}
-<h1>Your Shopping Cart</h1>
+<style>
+    .cart-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
 
-{% if cart_items %}
-    <ul>
+    .cart-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .cart-item {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    .cart-item a {
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: bold;
+        margin-left: 15px;
+    }
+
+    .cart-item a:hover {
+        text-decoration: underline;
+    }
+
+    .total {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: right;
+        margin-top: 20px;
+        color: #007bff;
+    }
+
+    .cart-actions {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .cart-actions a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 18px;
+        background-color: #28a745;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .cart-actions a:hover {
+        background-color: #218838;
+    }
+
+    .cart-actions a:first-child {
+        background-color: #007bff;
+    }
+
+    .cart-actions a:first-child:hover {
+        background-color: #0069d9;
+    }
+
+    .empty-cart {
+        text-align: center;
+        color: #888;
+        margin: 40px 0;
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="cart-container">
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_items %}
         {% for item in cart_items %}
-            <li>
-                {{ item.product.name }} — {{ item.quantity }} x {{ item.product.price }} RWF = {{ item.subtotal }} RWF
+            <div class="cart-item">
+                <span>
+                    {{ item.product.name }} — {{ item.quantity }} × {{ item.product.price }} RWF = {{ item.subtotal }} RWF
+                </span>
                 <a href="{% url 'remove_from_cart' item.product.id %}">Remove</a>
-            </li>
+            </div>
         {% endfor %}
-    </ul>
-    <h3>Total: {{ total }} RWF</h3>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+        <div class="total">Total: {{ total }} RWF</div>
 
-<a href="{% url 'product_list' %}">← Continue Shopping</a> |
-<a href="{% url 'checkout' %}">Proceed to Checkout →</a>
+        <div class="cart-actions">
+            <a href="{% url 'product_list' %}">← Continue Shopping</a>
+            <a href="{% url 'checkout' %}">Proceed to Checkout →</a>
+        </div>
+    {% else %}
+        <p class="empty-cart">🛒 Your cart is empty.</p>
+        <div class="cart-actions">
+            <a href="{% url 'product_list' %}">Start Shopping</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
