@@ -3,13 +3,96 @@
 {% block title %}Checkout{% endblock %}
 
 {% block content %}
-<h2>Checkout</h2>
+<style>
+  .checkout-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Place Order</button>
-</form>
+  .checkout-container h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-weight: 700;
+    text-align: center;
+  }
 
-<a href="{% url 'view_cart' %}">← Back to Cart</a>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  form p {
+    margin: 0;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="checkout-container">
+  <h2>Checkout</h2>
+  
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Place Order</button>
+  </form>
+
+  <a href="{% url 'view_cart' %}">← Back to Cart</a>
+</div>
+
 {% endblock %}
