@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ request.user.username }}</h2>
+<p>Email: {{ request.user.email }}</p>
+
+<h3>Your Orders</h3>
+
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+            <li>
+                Order #{{ order.id }} — <strong>{{ order.status }}</strong> — {{ order.date_ordered|date:"M d, Y" }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't placed any orders yet.</p>
+{% endif %}
+{% endblock %}

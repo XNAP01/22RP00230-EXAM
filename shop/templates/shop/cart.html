@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<h1>Your Shopping Cart</h1>
+
+{% if cart_items %}
+    <ul>
+        {% for item in cart_items %}
+            <li>
+                {{ item.product.name }} — {{ item.quantity }} x {{ item.product.price }} RWF = {{ item.subtotal }} RWF
+                <a href="{% url 'remove_from_cart' item.product.id %}">Remove</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <h3>Total: {{ total }} RWF</h3>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+<a href="{% url 'product_list' %}">← Continue Shopping</a> |
+<a href="{% url 'checkout' %}">Proceed to Checkout →</a>
+{% endblock %}
